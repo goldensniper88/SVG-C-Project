@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1000
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "svg", "svg\svg.vcxproj", "{3322BED2-35F4-47D1-9EB0-E755F3D02C78}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3322BED2-35F4-47D1-9EB0-E755F3D02C78}.Debug|x64.ActiveCfg = Debug|x64
+		{3322BED2-35F4-47D1-9EB0-E755F3D02C78}.Debug|x64.Build.0 = Debug|x64
+		{3322BED2-35F4-47D1-9EB0-E755F3D02C78}.Debug|x86.ActiveCfg = Debug|Win32
+		{3322BED2-35F4-47D1-9EB0-E755F3D02C78}.Debug|x86.Build.0 = Debug|Win32
+		{3322BED2-35F4-47D1-9EB0-E755F3D02C78}.Release|x64.ActiveCfg = Release|x64
+		{3322BED2-35F4-47D1-9EB0-E755F3D02C78}.Release|x64.Build.0 = Release|x64
+		{3322BED2-35F4-47D1-9EB0-E755F3D02C78}.Release|x86.ActiveCfg = Release|Win32
+		{3322BED2-35F4-47D1-9EB0-E755F3D02C78}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1A1EF52C-D08D-44F6-946B-79A6A69EBA01}
+	EndGlobalSection
+EndGlobal
