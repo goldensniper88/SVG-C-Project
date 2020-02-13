@@ -526,11 +526,9 @@ void getGroupElement(List *srcList, List *destList, int offset) {
 		// 0 * sizeof(List *) for Rectangle, 1 * sizeof(List *) for Circle and so on.
 		// Now result will be address of the pointer of the primitive LIST, which is double pointer
 		// so the result is cast back into LIST**, then dereference the double pointer by one we get the address of the 
-		// respective primitive LIST
-
+		// respective primitive LIST  
 		ListIterator circleIter = createIterator(*(List **)((uintptr_t)gp + offset * sizeof(List *)));
 		//ListIterator circleIter = createIterator(*(List **)((void*)gp + offset * sizeof(List *)));
-
 		void *element = NULL;
 		while ((element = nextElement(&circleIter)) != NULL) {
 			insertBack(destList, element);
@@ -1119,18 +1117,15 @@ bool addGroupChildsToNode(xmlNodePtr parent, Group* group)
 		while ((rect = nextElement(&iter)) != NULL)
 		{
 			node = xmlNewChild(parent, NULL, BAD_CAST "rect", NULL);
-            sprintf(buf, "%.2f", rect->x);
+            sprintf(buf, "%.2f%s", rect->x, rect->units);
 			xmlNewProp(node, BAD_CAST "x", BAD_CAST buf);
-            sprintf(buf, "%.2f", rect->y);
+            sprintf(buf, "%.2f%s", rect->y, rect->units);
 			xmlNewProp(node, BAD_CAST "y", BAD_CAST buf);
-            sprintf(buf, "%.2f", rect->width);
+            sprintf(buf, "%.2f%s", rect->width, rect->units);
 			xmlNewProp(node, BAD_CAST "width", BAD_CAST buf);
-            sprintf(buf, "%.2f", rect->height);
+            sprintf(buf, "%.2f%s", rect->height, rect->units);
 			xmlNewProp(node, BAD_CAST "height", BAD_CAST buf);
-			// if (strlen(rect->units) > 0) {
-			// 	return false;
-			// 	//xmlNewProp(node, BAD_CAST "units", BAD_CAST rect->units);
-			// }
+
 			if (!addAttributesToNode(node, rect->otherAttributes))
 				return false;
 		}
@@ -1142,16 +1137,13 @@ bool addGroupChildsToNode(xmlNodePtr parent, Group* group)
 		while ((circle = nextElement(&iter)) != NULL)
 		{
 			node = xmlNewChild(parent, NULL, BAD_CAST "circle", NULL);
-            sprintf(buf, "%.2f", circle->cx);
+            sprintf(buf, "%.2f%s", circle->cx, circle->units);
 			xmlNewProp(node, BAD_CAST "cx", BAD_CAST buf);
-            sprintf(buf, "%.2f", circle->cy);
+            sprintf(buf, "%.2f%s", circle->cy, circle->units);
 			xmlNewProp(node, BAD_CAST "cy", BAD_CAST buf);
-            sprintf(buf, "%.2f", circle->r);
+            sprintf(buf, "%.2f%s", circle->r, circle->units);
 			xmlNewProp(node, BAD_CAST "r", BAD_CAST buf);
-			// if (strlen(circle->units) > 0) {
-			// 	return false;
-			// 	//xmlNewProp(node, BAD_CAST "units", BAD_CAST circle->units);
-			// }
+
 			if (!addAttributesToNode(node, circle->otherAttributes))
 				return false;
 		}
@@ -1221,19 +1213,15 @@ xmlDocPtr convertSVGimageToDoc(SVGimage* image) {
         while ((rect = nextElement(&iter)) != NULL)
         {
 			node = xmlNewChild(root_node, NULL, BAD_CAST "rect", NULL);
-            sprintf(buf, "%.2f", rect->x);
+            sprintf(buf, "%.2f%s", rect->x, rect->units);
             xmlNewProp(node, BAD_CAST "x", BAD_CAST buf);
-            sprintf(buf, "%.2f", rect->y);
+            sprintf(buf, "%.2f%s", rect->y, rect->units);
             xmlNewProp(node, BAD_CAST "y", BAD_CAST buf);
-            sprintf(buf, "%.2f", rect->width);
+            sprintf(buf, "%.2f%s", rect->width, rect->units);
             xmlNewProp(node, BAD_CAST "width", BAD_CAST buf);
-            sprintf(buf, "%.2f", rect->height);
+            sprintf(buf, "%.2f%s", rect->height, rect->units);
             xmlNewProp(node, BAD_CAST "height", BAD_CAST buf);
-			// if (strlen(rect->units) > 0) {
-				//fail = true;
-				//break;
-			// 	xmlNewProp(node, BAD_CAST "units", BAD_CAST rect->units);
-			// }
+			
             if (!addAttributesToNode(node, rect->otherAttributes)) {
 				fail = true;
 				break;
@@ -1247,17 +1235,13 @@ xmlDocPtr convertSVGimageToDoc(SVGimage* image) {
 		while ((circle = nextElement(&iter)) != NULL)
 		{
 			node = xmlNewChild(root_node, NULL, BAD_CAST "circle", NULL);
-            sprintf(buf, "%.2f", circle->cx);
+            sprintf(buf, "%.2f%s", circle->cx, circle->units);
 			xmlNewProp(node, BAD_CAST "cx", BAD_CAST buf);
-            sprintf(buf, "%.2f", circle->cy);
+            sprintf(buf, "%.2f%s", circle->cy, circle->units);
 			xmlNewProp(node, BAD_CAST "cy", BAD_CAST buf);
-            sprintf(buf, "%.2f", circle->r);
+            sprintf(buf, "%.2f%s", circle->r, circle->units);
 			xmlNewProp(node, BAD_CAST "r", BAD_CAST buf);
-			if (strlen(circle->units) > 0) {
-				fail = true;
-				break;
-				//xmlNewProp(node, BAD_CAST "units", BAD_CAST circle->units);
-			}
+
             if (!addAttributesToNode(node, circle->otherAttributes)) {
 				fail = true;
 				break;
