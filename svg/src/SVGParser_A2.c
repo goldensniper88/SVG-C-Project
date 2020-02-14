@@ -1684,18 +1684,86 @@ char* SVGtoJSON(const SVGimage* imge)
 
 SVGimage* JSONtoSVG(const char* svgString)
 {
-	return NULL;
+	char title[500];
+	char descr[1000];
+	sscanf(svgString, "{\"title\":\"%499[^\"]\",\"descr\":\"%999[^\"]\"}", title, descr);
+
+	SVGimage *image;
+	image = (SVGimage *)malloc(sizeof(SVGimage));
+	if (image == NULL) {
+		printf("Error in Allocating SVGimage memory\n\r");
+		return NULL;
+	}
+	memset(image, 0, sizeof(SVGimage));
+	// initialize LIST for the SVGimage Object members
+	image->rectangles = initializeList(&rectangleToString, &deleteRectangle, &compareRectangles);
+	image->circles = initializeList(&circleToString, &deleteCircle, &compareCircles);
+	image->paths = initializeList(&pathToString, &deletePath, &comparePaths);
+	image->groups = initializeList(&groupToString, &deleteGroup, &compareGroups);
+	image->otherAttributes = initializeList(&attributeToString, &deleteAttribute, &compareAttributes);
+	strcpy(image->title, title);
+	strcpy(image->description, descr);
+
+	return image;
 
 }
 
 Rectangle* JSONtoRect(const char* svgString)
 {
-	return NULL;
+	
+	float xVal = 0.0f;
+	float yVal = 0.0f;
+	float wVal = 0.0f;
+	float hVal = 0.0f;
+	char units[20];
+
+	sscanf(svgString, "{\"x\":%g,\"y\":%g,\"w\":%g,\"h\":%g,\"units\":\"%19[^\"]\"}", &xVal, &yVal, &wVal, &hVal, units);
+
+	Rectangle *rec;
+	rec = (Rectangle *)malloc(sizeof(Rectangle));
+	if (rec == NULL) {
+		printf("Error in Allocating Rectangle image memory\n\r");
+		return NULL;
+	}
+	memset(rec, 0, sizeof(Rectangle));
+	// initialize other member of Rectangle
+	rec->otherAttributes = initializeList(&attributeToString, &deleteAttribute, &compareAttributes);
+
+	rec->x = xVal;
+	rec->y = yVal;
+	rec->width = wVal;
+	rec->height = hVal;
+	strcpy(rec->units, units);
+
+	return rec;
 
 }
 
 Circle* JSONtoCircle(const char* svgString)
 {
-	return NULL;
+	float cxVal = 0.0f;
+	float cyVal = 0.0f;
+	float rVal = 0.0f;
+	char units[20];
+
+	sscanf(svgString, "{\"cx\":%g,\"cy\":%g,\"r\":%g,\"units\":\"%19[^\"]\"}", &cxVal, &cyVal, &rVal, units);
+
+	Circle *circ;
+	circ = (Circle *)malloc(sizeof(Circle));
+	if (circ == NULL) {
+		printf("Error in Allocating Rectangle image memory\n\r");
+		return NULL;
+	}
+	memset(circ, 0, sizeof(Circle));
+
+	// initialize other member of Rectangle
+	circ->otherAttributes = initializeList(&attributeToString, &deleteAttribute, &compareAttributes);
+
+	circ->cx = cxVal;
+	circ->cy = cyVal;
+	circ->r = rVal;
+	strcpy(circ->units, units);
+
+	return circ;
 
 }
