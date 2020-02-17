@@ -1108,7 +1108,8 @@ bool addGroupChildsToNode(xmlNodePtr parent, Group* group)
         return false;
 
 	ListIterator iter;
-	char buf[20];
+	char buf[80];
+	memset(buf, 0, 80);
     xmlNodePtr node = NULL;
 
 	if (group->rectangles) {
@@ -1204,8 +1205,9 @@ xmlDocPtr convertSVGimageToDoc(SVGimage* image) {
     xmlNodePtr node = NULL;
 
     ListIterator iter;
-	char buf[20];
-    memset(buf, 0, 20);
+	//char *buf = (char*)malloc(80);
+	char buf[80];
+    memset(buf, 0, 80);
 
     if (image->rectangles) {
         iter = createIterator(image->rectangles);
@@ -1282,6 +1284,8 @@ xmlDocPtr convertSVGimageToDoc(SVGimage* image) {
 	}
 
     xmlCleanupParser();
+
+	//free(buf);
 
 	if (fail) {
 		xmlFreeDoc(doc);
