@@ -1205,7 +1205,7 @@ xmlDocPtr convertSVGimageToDoc(SVGimage* image) {
     xmlNodePtr node = NULL;
 
     ListIterator iter;
-	//char *buf = (char*)malloc(80);
+	//char *buf = (char*)malloc(80);  //create a memory part with malloc function
 	char buf[80];
     memset(buf, 0, 80);
 
@@ -1285,7 +1285,7 @@ xmlDocPtr convertSVGimageToDoc(SVGimage* image) {
 
     xmlCleanupParser();
 
-	//free(buf);
+	//free(buf);   //delete the memory part created by malloc function
 
 	if (fail) {
 		xmlFreeDoc(doc);
